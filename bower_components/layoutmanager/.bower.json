@@ -1,0 +1,23 @@
+{
+  "name": "layoutmanager",
+  "version": "0.9.3",
+  "main": "backbone.layoutmanager.js",
+  "dependencies": {
+    "jquery": ">=1.6",
+    "underscore": ">=1.5",
+    "backbone": "~1.0",
+    "qunit": "~1.12.0",
+    "requirejs": "~2.1.8"
+  },
+  "homepage": "https://github.com/tbranyen/backbone.layoutmanager",
+  "_release": "0.9.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.9.3",
+    "commit": "8809ba9caf976f470867339ce6b71e9cfa4306f1"
+  },
+  "_source": "git://github.com/tbranyen/backbone.layoutmanager.git",
+  "_target": "~0.9.3",
+  "_originalSource": "layoutmanager",
+  "_direct": true
+}

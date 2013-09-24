@@ -1,0 +1,247 @@
+{
+	"education": [
+	 {
+		"date": "2012",
+		"degree": "MFA",
+		"university":  "Claremont Graduate University",
+		"city": "Claremont",
+		"state": "CA"
+	 },
+	 {
+		"date": "2002",
+		"degree": "BA",
+		"university":  "Art and Art History",
+		"city": "Kalamazoo College",
+		"state": "MI"
+	 }
+	],
+	"solo": [
+		{
+			"date": "2012",
+			"title": "Autonomie",
+			"city": "Los Angeles",
+			"state": "CA"
+		},
+		{
+			"date": "2012",
+			"title": "Salt",
+			"gallery": "Peggy Phelps Gallery",
+			"city": "Claremont",
+			"state": "CA"
+		},
+		{
+			"date": "2009",
+			"title": "Current Works",
+			"gallery": "The Good Food Gallery",
+			"city": "Arcata",
+			"state": "CA"
+		},
+		{
+			"date": "2005",
+			"title": "Icons",
+			"gallery": "JET Artworks",
+			"city": "Washington",
+			"state": "DC"
+		},
+		{
+			"date": "2002",
+			"title": "Grand People for Some Splendid Age",
+			"gallery": "Light Fine Arts Gallery",
+			"city": "Kalamazoo",
+			"state": "MI"
+		}
+	],
+	"group": [
+		{
+			"date": "2013",
+			"title": "Mass Attack",
+			"gallery": "LA Mart",
+			"city": "Los Angeles",
+			"state": "CA"
+		},
+		{
+			"date": "2012",
+			"title": "GLAMFA",
+			"gallery": "California State University Long Beach School of Art",
+			"city": "Long Beach",
+			"state": "CA"
+		},
+		{
+			"date": "2012",
+			"title": "Last Splash",
+			"gallery": "Peggy Phelps Gallery",
+			"city": "Claremont",
+			"state": "CA"
+		},
+		{
+			"date": "2012",
+			"title": "City Hall",
+			"city": "Claremont",
+			"state": "CA"
+		},
+		{
+			"date": "2011",
+			"title": "F1 Gallery",
+			"gallery": "Bergamot Station",
+			"city": "Santa Monica",
+			"state": "CA"
+		},
+		{
+			"date": "2011",
+			"title": "Split Second Split",
+			"gallery": "F1 Gallery, Bergamot Station",
+			"city": "Santa Monica",
+			"state": "CA"
+		},
+		{
+			"date": "2011",
+			"title": "Split Second Split",
+			"gallery": "Peggy Phelps Gallery, CGU",
+			"city": "Claremont",
+			"state": "CA"
+		},
+		{
+			"date": "2011",
+			"title": "Vex Again",
+			"gallery": "dA Center For The Arts",
+			"city": "Pomona",
+			"state": "CA"
+		},
+		{
+			"date": "2010",
+			"title": "City Hall Group Show",
+			"gallery": "City Hall",
+			"city": "Claremont",
+			"state": "CA"
+		},
+		{
+			"date": "2010",
+			"title": "Friction",
+			"gallery": "East Gallery",
+			"city": "Claremont",
+			"state": "CA"
+		},
+		{
+			"date": "2010",
+			"title": "The Good Food Gallery",
+			"city": "Arcata",
+			"state": "CA"
+		},
+		{
+			"date": "2009",
+			"title": "The Good Food Gallery",
+			"city": "Arcata",
+			"state": "CA"
+		},
+		{
+			"date": "2008",
+			"title": "The Good Food Gallery",
+			"city": "Arcata",
+			"state": "CA"
+		},
+		{
+			"date": "2007",
+			"title": "The Good Food Gallery",
+			"city": "Arcata",
+			"state": "CA"
+		},
+		{
+			"date": "2006",
+			"title": "NOVA",
+			"city": "Chicago",
+			"state": "IL"
+		},
+		{
+			"date": "2006",
+			"title": "Introductions",
+			"gallery": "Thomas Robertello Gallery",
+			"city": "Chicago",
+			"state": "IL"
+		},
+		{
+			"date": "2005",
+			"title": "Go Figure",
+			"gallery": "JET Artworks",
+			"city": "Washington",
+			"state": "DC"
+		},
+		{
+			"date": "2004",
+			"title": "The Works",
+			"city": "Detroit",
+			"state": "MI"
+		},
+		{
+			"date": "2003",
+			"title": "Goodnite Gracie",
+			"city": "Ann Arbor",
+			"state": "MI"
+		},
+		{
+			"date": "2003",
+			"title": "Firefly Club",
+			"city": "Ann Arbor",
+			"state": "MI"
+		},
+		{
+			"date": "2002",
+			"title": "Light Fine Arts Gallery",
+			"city": "Kalamazoo",
+			"state": "MI"
+		},
+		{
+			"date": "2000",
+			"title": "Light Fine Arts Gallery",
+			"city": "Kalamazoo",
+			"state": "MI"
+		}
+	],
+	"awards": [
+		{
+			"date": "2011",
+			"title": "CGU Art Fellowship",
+			"city": "Claremont",
+			"state": "CA"
+		},
+		{
+			"date": "2009",
+			"title": "What The Pop! Video Music Festival",
+			"category": "Best Animated Video",
+			"city": "Arcata",
+			"state": "CA"
+		},
+		{
+			"date": "2006",
+			"title": "ihugens.com, NOVA",
+			"category": "Best In Show",
+			"city": "Chicago",
+			"state": "IL"
+		}
+	],
+	"publications": [
+		{
+			"date": "2011",
+			"title": "Art Takes Miami"
+		},
+		{
+			"date": "2005",
+			"title": "LuxEsto, Vol. 66, No. 2, (cover)"
+		},
+		{
+			"date": "2004",
+			"title": "New American Paintings, No. 53, (cover)"
+		},
+		{
+			"date": "2004",
+			"title": "The Standby, No. 1, (cover)"
+		},
+		{
+			"date": "2002",
+			"title": "Caldron"
+		},
+		{
+			"date": "2002",
+			"title": "Passage"
+		}
+	]
+}

@@ -1,0 +1,217 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body {
+	padding: 0em 0em 0em 0em;
+	font:Verdana, Geneva, sans-serif;
+	font-size:14px;
+	background-color:#c6c6c6;
+	color:#000;
+	margin: 0em 0em 0em 0em;
+	/*background-image:url(images/BlueBBQ2_bg.jpg);*/
+	
+}
+
+h1, h2, .worktitle, .worktitle2 {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.worktitle, .worktitle2 { margin-top: 10px; margin-bottom: 10px; padding-right: 10px; }
+.worktitle2 { padding-left: 10px; }
+
+label {
+	float: left;
+	width: 100px;
+}
+
+#image_group, #image_group2 {
+	width:1145px;
+	/*text-align:center;*/
+	background-color:#FFFFFF;
+	height: 1000px;
+	padding: 0.5em 0em 0em 2em;
+}
+
+#image_group2 {
+    display: none;
+}
+
+#content {
+	text-align:center;
+}
+
+#wrapper { 
+	margin: 0 auto; 
+	width: 1200px;
+	text-align:left;
+	
+}
+
+#image_cntr {
+	text-align:center;
+}
+
+#contain_group, #contain_group2{
+	display: inline-block;
+}
+
+#hleft { text-align: left; margin: 10px 0px; }
+
+a {
+	text-decoration: none;
+	color: #FFF;
+	border:none;
+}
+a.worktitle, a.worktitle2 {
+    text-decoration: none;
+    color: #666666;
+    border: none;
+}
+
+.lnkcolor {
+	color:#00C;
+}
+
+.lnkcolor2 {
+	color:#00C;
+}
+
+#header {
+	width: 100%;
+	background-color:#C6C6C6;
+}
+
+.htitle {
+	color: #FFF;
+	padding: 0em 0em 0em 2em;
+	width:900px;
+}
+
+.dtitle {
+	font-size: 100px;
+	width: 600px;
+	display:inline;
+}
+
+.nav {
+	font-size:18px;
+	color:#FFF;
+	padding-left:1.6em;
+}
+
+.nav2 {
+	font-size:18px;
+	color:#FFF;
+	vertical-align:text-bottom;
+	/*padding-left:0.8em;*/
+}
+
+
+.image_cell {
+	/*width:205px;*/
+	float:left;
+	padding-bottom: 15px;
+	margin-right: 2em;
+}
+
+.image_cell2 {
+	/*width:205px;*/
+	float:left;
+	padding-bottom: 2.5em;
+	margin-right: 2.5em;
+}
+
+.ctext {
+	width:1145px;
+	padding:0.5em 0em 0em 2em;
+	background-color:#ffffff;
+	height: auto;
+}
+
+.frmtext {
+	width: 1200px;
+	padding-top: 1em;
+}
+
+.clear {clear:both}
+/* remove the list style */
+#nav {
+    margin:0px 0px 0px 0px;
+    padding:0 0 0 10px;
+    list-style:none;
+    display:inline-block;
+    /*vertical-align: bottom;*/
+}  
+
+#nav li {
+        float:left;
+        display:block;
+        /*width:100px;
+        background:#ccc;*/
+        position:relative;
+        z-index:1;
+        margin:0px 8px 0px 0px;
+    }
+         
+    /* this is the parent menu */
+#nav li a {
+	display:block;
+    padding:0px 5px 0 5px;
+    /*font-weight:700; 
+    height:23px;*/
+    text-decoration:none;
+    color:#fff;
+    /*text-align:center;*/
+    /*color:#333;*/
+}
+ 
+#nav li a:hover {
+        color:#999;
+}
+     
+    /* you can make a different style for default selected value */
+#nav a.selected {
+        color:#666;
+}
+
+
+#nav ul {
+    /*position:absolute;
+	top:100px;
+	left:670px;
+	z-index:1;
+	background-color:#c6c6c6;
+	width: 115px;
+	padding: 0px 0px 3px 5px;*/
+	/*display:inline-block;*/
+	position:absolute;
+    left:0;
+    display:none;
+    margin:0 0 0 -1px;
+    padding: 0px 0px 3px 5px;
+    list-style:none;
+    vertical-align:text-bottom;
+}
+
+#nav ul li {
+    width:130px;
+    float:left;
+    background-color:#c6c6c6;
+    margin-left: 0px;
+    /*border-top:1px solid #fff;*/
+}
+         
+        /* display block will make the link fill the whole area of LI */
+#nav ul a {
+    display:block; 
+    height:15px;
+    padding: 4px 5px;
+    color:#fff;
+}
+         
+#nav ul a:hover {
+    /*text-decoration:underline; */
+}
+
+

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Jorin Bossen</title>
+<link rel="stylesheet" href="lightbox2.05/css/lightbox.css" type="text/css" media="screen" />
+<link rel="stylesheet" type="text/css" href="styles.css"/>
+<style type="text/css">
+#dropdown {
+	position:absolute;
+	top:100px;
+	left:670px;
+	z-index:1;
+	background-color:#c6c6c6;
+	width: 115px;
+	padding: 0px 0px 3px 5px;
+	/*visibility: hidden;*/
+	
+}
+
+/*#dropdown a {
+	visibility: visible;
+}*/
+
+.lnksection {
+	display:inline;
+}   
+
+</style>
+<script type="text/javascript" src="lightbox2.05/js/prototype.js"></script>
+<script type="text/javascript" src="lightbox2.05/js/scriptaculous.js?load=effects,builder"></script>
+<script type="text/javascript" src="lightbox2.05/js/lightbox.js"></script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript">
+jQuery.noConflict();
+jQuery(document).ready(function () {
+	jQuery("#dropdown").hide();
+	jQuery("a.drop1").click(function (event) {
+		jQuery("#contain_group").load("cowboy_paintings.html");
+		event.preventDefault();
+	});
+	jQuery("a.drop2").click(function (event) {
+		jQuery("#contain_group").load("other_works.html");
+		event.preventDefault();
+	});
+	jQuery('#nav li').hover(
+        function () {
+            //show its submenu
+            jQuery('ul', this).slideDown(100);
+ 
+        },
+        function () {
+            //hide its submenu
+            jQuery('ul', this).slideUp(100);        
+        }
+    );
+});
+</script>
+</head>
+
+<body>
+<div id="content">
+<div id="wrapper">
+<div id="header">
+<div class="htitle">
+<div class="dtitle">
+<a href="index.html">
+Jorin Bossen</a></div>
+<!--close dtitle -->
+<ul id="nav" style="position:relative; top:5px;">
+    <li><span class="nav2"><a href="work.html" class="selected">WORK</a></span>
+    	<ul>
+            <li><a class="drop1" href="">Cowboy Paintings</a></li>
+            <li><a class="drop2" href="" class="selected">Other Works</a></li>
+    	</ul>
+        <div class="clear"></div>
+    </li>
+    <li><span class="nav2"><a href="CV.html">CV</a></span></li>
+    <li><span class="nav2"><a href="contact.html">CONTACT</a></span></li>
+</ul>
+ 
+<div class="clear"></div>
+
+</div><!-- close htitle-->
+</div><!--close header-->
+
+
+<div id="image_group">
+<div id="contain_group">
+<div id="hleft">
+<h2>Other Works</h2></div>
+<div class="image_cell">
+<a href="images/jorinbossen1.jpg" rel="lightbox[grpth]" title="Kiss A Real Man 25cents">
+<img src="images/jorinbossen1_thumbnail.jpg" width="200" height="251" alt="th1" border="0" /></a>
+</div>
+<div class="image_cell"><a href="images/jorinbossen2.jpg" rel="lightbox[grpth]" title="Carlos at Cantors"><img src="images/jorinbossen2_thumbnail.jpg" alt="th2" width="200" height="250" border="0" /></a>
+</div>
+<div class="image_cell"><a href="images/jorinbossen3.jpg" rel="lightbox[grpth]" title="Blue Brian"><img src="images/jorinbossen3_thumbnail.jpg" alt="th3" width="194" height="250" border="0" /></a>
+</div>
+<div class="image_cell"><a href="images/BlueBBQ2_web.jpg" rel="lightbox[grpth]" title="Blue BBQ"><img src="images/jorinbossen4_thumbnail.jpg" alt="th4" width="194" height="250" border="0" /></a></div>
+<div class="image_cell"><a href="images/St_Francis.jpg" rel="lightbox[grpth]" title="St. Francis in Ecstacy"><img src="images/St_Francis_thumbnail.jpg" width="210" height="250" alt="th5" border="0" /></a></div>
+</div>
+
+</div>
+</div>
+</div>
+
+</body>
+</html>
