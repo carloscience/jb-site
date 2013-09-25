@@ -25,6 +25,12 @@ label {
 	width: 100px;
 }
 
+#contain_image {
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+}
+
 #image_group, #image_group2 {
 	width:1145px;
 	/*text-align:center;*/

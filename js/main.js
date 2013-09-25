@@ -1,9 +1,7 @@
-var JB = JB || {};
+var JB = JB || {}; // main app object
 var JST = JST || {};
 
-JB.Model = Backbone.Model.extend({});
-JB.model = new JB.Model();
-
+// configure backbone layouts
 Backbone.Layout.configure({
   manage: true,
 
@@ -30,41 +28,51 @@ Backbone.Layout.configure({
   }
 });
 
+// Backbone router for nav links
 JB.Router = Backbone.Router.extend({
   routes: {
     '': 'index',
     'work': 'showWork',
+    'portrait': 'showWork',
     'cv': 'showCv',
     'contact': 'showContact'
   },
   index: function() {
     console.log('got index');
+    // render home page
+    JB.home.render();
   },
 
   showWork: function(lnk) {
+    // page is loaded by deep linking. no current target
     if (!(lnk)) {
-        lnk = "WORK";
+      var deeplink = window.location.hash.substring(1);
+      lnk = deeplink;
+      console.log("link is " + lnk);
     }
-    if (lnk == "Cowboy Paintings" || lnk == "WORK") {
-      JB.work.render();
-      this.navigate('work');
+
+    // main work link was clicked or cowboy paintings link was clicked
+    if (lnk == "work" || lnk == "worktitle") {
+      JB.work.render(); // render main work page
+      this.navigate('work'); // route to work page
     }
-    if (lnk == "Other Works") {
-      JB.portrait.render();
-      this.navigate('otherwork');
+    // portrait link under work dropdown was clicked
+    if (lnk == "portrait" || lnk == "worktitle2") {
+      JB.portrait.render(); // render portrait page
+      this.navigate('portrait'); // route to portrait page
     }
     console.log("getting work data");
-    console.log("link is " + lnk);
+    // get list of work
     $.getJSON('data/work.json', function(result) {
       
       var category,
        light;
        
-      if (lnk == "Cowboy Paintings" || lnk == "WORK") {
+      if (lnk == "work" || lnk == "worktitle") {
         category = result.cowboy;
         light = "cowboy";
       }
-      if (lnk == "Other Works") {
+      if (lnk == "portrait" || lnk == "worktitle2") {
         category = result.portrait;
         light = "grpth";
       }
@@ -150,36 +158,27 @@ $(document).ready(function() {
     onHome: function(e) {
       e.preventDefault();
       console.log('clicked home');
-      JB.home.render();
+      JB.router.index();
     },
     onWork: function(e) {
       e.preventDefault();
       console.log('clicked work');
-      /*var $a = $(e.currentTarget);
-      var index = this.$el.find('a').index($a);
-      console.log(index);*/
-      var $a = $(e.currentTarget).html();
+      var $a = $(e.currentTarget).attr('class');;
       console.log('current link is ' +  $a)
-      //var index = this.$el.find('a').index($a);
-      //JB.work.render();
       JB.router.showWork($a);
     },
     onCv: function(e) {
       e.preventDefault();
-      //JB.cv.render();
       JB.router.showCv(); 
     },
     onContact: function(e) {
       e.preventDefault();
       JB.router.showContact();
-      //JB.contact.render();
     },
     onPortrait: function(e) {
       e.preventDefault();
-      var $a = $(e.currentTarget).html();
+      var $a = $(e.currentTarget).attr('class');
       console.log('current link is ' +  $a)
-      //var index = this.$el.find('a').index($a);
-      //JB.portrait.render();
       JB.router.showWork($a);
     },
     listWork: function() {
@@ -191,7 +190,6 @@ $(document).ready(function() {
     },
     serialize: function() {
       console.log('serializing');
-    //return { user: this.model };
     }
   });
 
@@ -260,10 +258,5 @@ $(document).ready(function() {
 
   Backbone.history.start();
   //jQuery.noConflict();
-  /*$('#nav a').click(function(e) {
-    e.preventDefault();
-    console.log('clicked nav');
-    $(this).addClass('selected');
-  });*/
   
 });
