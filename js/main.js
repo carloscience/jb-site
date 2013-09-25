@@ -34,19 +34,25 @@ JB.Router = Backbone.Router.extend({
   routes: {
     '': 'index',
     'work': 'showWork',
-    'cv': 'showCv'
+    'cv': 'showCv',
+    'contact': 'showContact'
   },
   index: function() {
     console.log('got index');
   },
 
   showWork: function(lnk) {
-    this.navigate('#work');
+    //JB.work.render();
     console.log("getting work data");
+    if (!(lnk)) {
+        lnk = "WORK";
+    }
+    console.log("link is " + lnk);
     $.getJSON('data/work.json', function(result) {
-      console.log("link is " + lnk);
+      
       var category,
        light;
+       
       if (lnk == "Cowboy Paintings" || lnk == "WORK") {
         category = result.cowboy;
         light = "cowboy";
@@ -63,7 +69,8 @@ JB.Router = Backbone.Router.extend({
   },
 
   showCv: function() {
-    this.navigate('#cv');
+    JB.cv.render();
+    this.navigate('cv');
     console.log("getting cv data");
 
     $.getJSON('data/cv.json', function(result) {
@@ -104,6 +111,11 @@ JB.Router = Backbone.Router.extend({
             $('.publications ul').append('<li>' + data.date + ', ' + data.title + '</li>');
           }
       });
+  },
+
+  showContact: function() {
+    JB.contact.render();
+    this.navigate('contact');
   }
 });
 
@@ -147,12 +159,13 @@ $(document).ready(function() {
     },
     onCv: function(e) {
       e.preventDefault();
-      JB.cv.render();
+      //JB.cv.render();
       JB.router.showCv(); 
     },
     onContact: function(e) {
       e.preventDefault();
-      JB.contact.render();
+      JB.router.showContact();
+      //JB.contact.render();
     },
     onPortrait: function(e) {
       e.preventDefault();
