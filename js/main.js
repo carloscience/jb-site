@@ -5,7 +5,7 @@ JB.Model = Backbone.Model.extend({});
 JB.model = new JB.Model();
 
 Backbone.Layout.configure({
-	manage: true,
+  manage: true,
 
   // where are the HTML templates:
   prefix: "templates/",
@@ -31,54 +31,74 @@ Backbone.Layout.configure({
 });
 
 JB.Router = Backbone.Router.extend({
-	routes: {
+  routes: {
     '': 'index'
-	},
-	index: function() {
-		console.log('got index');
-	},
-	showCv: function() {
-		console.log("getting cv data");
+  },
+  index: function() {
+    console.log('got index');
+  },
 
-		$.getJSON('data/cv.json', function(result) {
-      		console.log(result);
-      		for (item in result.education) {
-        		var data = result.education[item];
-        		$('.education ul').append('<li>' + data.date + ' ' + data.degree + ', ' + data.university + ', ' + data.city + ', ' + data.state + '</li>');
-      		}
-      		for (item in result.solo) {
-        		var data = result.solo[item];
-        		if (data.gallery) {
-          			var exhibitions = '<li>' + data.date + ' ' + data.title + ', ' + data.gallery + ', ' + data.city + ', ' + data.state + '</li>';
-        		} else {
-          			var exhibitions = '<li>' + data.date + ' ' + data.title + ', ' + data.city + ', ' + data.state + '</li>';
-        		}
-        		$('.solo ul').append(exhibitions);
-      		}
-      		for (item in result.group) {
-        		var data = result.group[item];
-        		if (data.gallery) {
-          			var exhibitions = '<li>' + data.date + ' ' + data.title + ', ' + data.gallery + ', ' + data.city + ', ' + data.state + '</li>';
-        		} else {
-          			var exhibitions = '<li>' + data.date + ' ' + data.title + ', ' + data.city + ', ' + data.state + '</li>';
-        		}
-        		$('.group ul').append(exhibitions);
-      		}
-      		for (item in result.awards) {
-        		var data = result.awards[item];
-        		if (data.category) {
-          			var exhibitions = '<li>' + data.date + ' ' + data.title + ', ' + data.category + ', ' + data.city + ', ' + data.state + '</li>';
-        		} else {
-          			var exhibitions = '<li>' + data.date + ' ' + data.title + ', ' + data.city + ', ' + data.state + '</li>';
-        		}
-        		$('.awards ul').append(exhibitions);
-      		}
-      		for (item in result.publications) {
-        		var data = result.publications[item];
-        		$('.publications ul').append('<li>' + data.date + ', ' + data.title + '</li>');
-      		}
-    	});
-	}
+  showWork: function(lnk) {
+    console.log("getting work data");
+    $.getJSON('data/work.json', function(result) {
+      console.log("link is " + lnk);
+      if (lnk == "Cowboy Paintings" || lnk == "WORK") {
+        for (item in result.cowboy) {
+          var data = result.cowboy[item];
+          $('#load_work').append('<div class="image_cell2"><a href="' + data.href + '" rel="lightbox[cowboy]" title="' + data.title + '"><img src="' + data.src + '" alt="' + data.alt + '" border="0" /></a></div>');
+        }
+      }
+      if (lnk == "Other Works") {
+        for (item in result.portrait) {
+          var data = result.portrait[item];
+          $('#load_work').append('<div class="image_cell"><a href="' + data.href + '" rel="lightbox[cowboy]" title="' + data.title + '"><img src="' + data.src + '" alt="' + data.alt + '" border="0" /></a></div>');
+        }
+      }
+    });
+  },
+
+  showCv: function() {
+    console.log("getting cv data");
+
+    $.getJSON('data/cv.json', function(result) {
+          console.log(result);
+          for (item in result.education) {
+            var data = result.education[item];
+            $('.education ul').append('<li>' + data.date + ' ' + data.degree + ', ' + data.university + ', ' + data.city + ', ' + data.state + '</li>');
+          }
+          for (item in result.solo) {
+            var data = result.solo[item];
+            if (data.gallery) {
+                var exhibitions = '<li>' + data.date + ' ' + data.title + ', ' + data.gallery + ', ' + data.city + ', ' + data.state + '</li>';
+            } else {
+                var exhibitions = '<li>' + data.date + ' ' + data.title + ', ' + data.city + ', ' + data.state + '</li>';
+            }
+            $('.solo ul').append(exhibitions);
+          }
+          for (item in result.group) {
+            var data = result.group[item];
+            if (data.gallery) {
+                var exhibitions = '<li>' + data.date + ' ' + data.title + ', ' + data.gallery + ', ' + data.city + ', ' + data.state + '</li>';
+            } else {
+                var exhibitions = '<li>' + data.date + ' ' + data.title + ', ' + data.city + ', ' + data.state + '</li>';
+            }
+            $('.group ul').append(exhibitions);
+          }
+          for (item in result.awards) {
+            var data = result.awards[item];
+            if (data.category) {
+                var exhibitions = '<li>' + data.date + ' ' + data.title + ', ' + data.category + ', ' + data.city + ', ' + data.state + '</li>';
+            } else {
+                var exhibitions = '<li>' + data.date + ' ' + data.title + ', ' + data.city + ', ' + data.state + '</li>';
+            }
+            $('.awards ul').append(exhibitions);
+          }
+          for (item in result.publications) {
+            var data = result.publications[item];
+            $('.publications ul').append('<li>' + data.date + ', ' + data.title + '</li>');
+          }
+      });
+  }
 });
 
 $(document).ready(function() {
@@ -90,6 +110,12 @@ $(document).ready(function() {
       'click a.work': 'onWork',
       'click a.cv': 'onCv',
       'click a.contact': 'onContact',
+      'click a.portrait': 'onPortrait',
+      'click a.worktitle2': 'onPortrait',
+      'click a.worktitle': 'onWork',
+      'mouseover .listWork': 'listWork',
+      'mouseleave .listWork': 'hideWork',
+      'mouseleave .showPaintings': 'hideWork'
     },
     initialize: function() {
       console.log('header initialize');
@@ -107,7 +133,11 @@ $(document).ready(function() {
       /*var $a = $(e.currentTarget);
       var index = this.$el.find('a').index($a);
       console.log(index);*/
+      var $a = $(e.currentTarget).html();
+      console.log('current link is ' +  $a)
+      //var index = this.$el.find('a').index($a);
       JB.work.render();
+      JB.router.showWork($a);
     },
     onCv: function(e) {
       e.preventDefault();
@@ -117,6 +147,21 @@ $(document).ready(function() {
     onContact: function(e) {
       e.preventDefault();
       JB.contact.render();
+    },
+    onPortrait: function(e) {
+      e.preventDefault();
+      var $a = $(e.currentTarget).html();
+      console.log('current link is ' +  $a)
+      //var index = this.$el.find('a').index($a);
+      JB.portrait.render();
+      JB.router.showWork($a);
+    },
+    listWork: function() {
+      console.log('activate dropdown menu');
+      $('.showPaintings').slideDown(100);
+    },
+    hideWork: function() {
+      $('.showPaintings').slideUp(100);
     },
     serialize: function() {
       console.log('serializing');
@@ -136,9 +181,15 @@ $(document).ready(function() {
   JB.Work = Backbone.Layout.extend({
     template: 'work',
     el: '#populate',
+    events: {
+      'click a.worktitle2': 'subPortrait'
+    },
+    subPortrait: function(e) {
+      e.preventDefault();
+      JB.header.onPortrait(e);
+    },
     initialize: function(){
         console.log('work initialized');
-        //this.render();
     }
   });
   
@@ -157,12 +208,29 @@ $(document).ready(function() {
       console.log('cv initialized');
     }
   });
+
+  JB.Portrait = Backbone.Layout.extend({
+    template: 'portrait',
+    el: '#populate',
+    events: {
+      'click a.worktitle': 'subWork'
+    },
+    subWork: function(e) {
+      e.preventDefault();
+      JB.header.onWork(e);
+    },
+    initialize: function() {
+      console.log('portrait initialized');
+    }
+  });
+
   JB.home = new JB.Home();
   JB.router = new JB.Router();
   JB.header = new JB.Header();
   JB.work = new JB.Work();
   JB.contact = new JB.Contact();
   JB.cv = new JB.Cv();
+  JB.portrait = new JB.Portrait();
 
   Backbone.history.start();
   //jQuery.noConflict();
@@ -171,19 +239,5 @@ $(document).ready(function() {
     console.log('clicked nav');
     $(this).addClass('selected');
   });*/
-	
-    /*$('#nav li').hover(
-        function () {
-            //show its submenu
-            $('ul', this).slideDown(100);
- 
-        },
-        function () {
-            //hide its submenu
-            $('ul', this).slideUp(100);        
-        }
-    );
-    $(".lnksection").mouseover(function () {
-        $("#dropdown").show();
-    });*/
+  
 });

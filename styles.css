@@ -69,6 +69,13 @@ a.worktitle, a.worktitle2 {
     border: none;
 }
 
+#hleft .work, #hleft .portrait {
+	color: #666666;
+	text-decoration: none;
+	border: none;
+	font-size: 1em;
+}
+
 .lnkcolor {
 	color:#00C;
 }
