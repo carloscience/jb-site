@@ -67,11 +67,14 @@ JB.Router = Backbone.Router.extend({
       
       var category,
        light;
-       
+      
+      // look for cowboy paintings in work list 
       if (lnk == "work" || lnk == "worktitle") {
         category = result.cowboy;
         light = "cowboy";
       }
+
+      // look for portraits in work list
       if (lnk == "portrait" || lnk == "worktitle2") {
         category = result.portrait;
         light = "grpth";
@@ -128,6 +131,7 @@ JB.Router = Backbone.Router.extend({
       });
   },
 
+  // render contact page and route there
   showContact: function() {
     JB.contact.render();
     this.navigate('contact');
@@ -136,7 +140,7 @@ JB.Router = Backbone.Router.extend({
 
 $(document).ready(function() {
   JB.Header = Backbone.Layout.extend({
-    template: 'header',
+    template: 'header', // load header template
     el: '#header',
     events: {
       'click a.home': 'onHome',
@@ -146,14 +150,14 @@ $(document).ready(function() {
       'click a.portrait': 'onPortrait',
       'click a.worktitle2': 'onPortrait',
       'click a.worktitle': 'onWork',
-      'mouseover .listWork': 'listWork',
+      'mouseover .listWork': 'listWork', // pulldown menu under work nav
       'mouseleave .listWork': 'hideWork',
       'mouseleave .showPaintings': 'hideWork'
     },
     initialize: function() {
       console.log('header initialize');
       console.log(this.$el.html());
-      this.render();
+      this.render(); // render header
     },
     onHome: function(e) {
       e.preventDefault();
@@ -165,7 +169,7 @@ $(document).ready(function() {
       console.log('clicked work');
       var $a = $(e.currentTarget).attr('class');;
       console.log('current link is ' +  $a)
-      JB.router.showWork($a);
+      JB.router.showWork($a); // route to work page according to type of work
     },
     onCv: function(e) {
       e.preventDefault();
@@ -194,7 +198,7 @@ $(document).ready(function() {
   });
 
   JB.Home = Backbone.Layout.extend({
-    template: 'home',
+    template: 'home', // load home template
     el: '#populate',
     initialize: function(){
       console.log('home initialized');
@@ -203,14 +207,14 @@ $(document).ready(function() {
   });
 
   JB.Work = Backbone.Layout.extend({
-    template: 'work',
+    template: 'work', // load work template
     el: '#populate',
     events: {
       'click a.worktitle2': 'subPortrait'
     },
     subPortrait: function(e) {
       e.preventDefault();
-      JB.header.onPortrait(e);
+      JB.header.onPortrait(e); // pass other works link to portrait layout in header
     },
     initialize: function(){
         console.log('work initialized');
@@ -218,7 +222,7 @@ $(document).ready(function() {
   });
   
   JB.Contact = Backbone.Layout.extend({
-    template: 'contact',
+    template: 'contact', // load contact template
     el: '#populate',
     initialize: function() {
       console.log('contact initialized');
@@ -226,7 +230,7 @@ $(document).ready(function() {
   });
 
   JB.Cv = Backbone.Layout.extend({
-    template: 'cv',
+    template: 'cv', // load cv template
     el: '#populate',
     initialize: function() {
       console.log('cv initialized');
@@ -234,7 +238,7 @@ $(document).ready(function() {
   });
 
   JB.Portrait = Backbone.Layout.extend({
-    template: 'portrait',
+    template: 'portrait', // load portrait template
     el: '#populate',
     events: {
       'click a.worktitle': 'subWork'
@@ -248,6 +252,7 @@ $(document).ready(function() {
     }
   });
 
+  // instantiate Layouts and Router
   JB.home = new JB.Home();
   JB.router = new JB.Router();
   JB.header = new JB.Header();
@@ -256,7 +261,7 @@ $(document).ready(function() {
   JB.cv = new JB.Cv();
   JB.portrait = new JB.Portrait();
 
+  // start router
   Backbone.history.start();
-  //jQuery.noConflict();
   
 });
