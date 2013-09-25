@@ -32,32 +32,38 @@ Backbone.Layout.configure({
 
 JB.Router = Backbone.Router.extend({
   routes: {
-    '': 'index'
+    '': 'index',
+    'work': 'showWork',
+    'cv': 'showCv'
   },
   index: function() {
     console.log('got index');
   },
 
   showWork: function(lnk) {
+    this.navigate('#work');
     console.log("getting work data");
     $.getJSON('data/work.json', function(result) {
       console.log("link is " + lnk);
+      var category,
+       light;
       if (lnk == "Cowboy Paintings" || lnk == "WORK") {
-        for (item in result.cowboy) {
-          var data = result.cowboy[item];
-          $('#load_work').append('<div class="image_cell2"><a href="' + data.href + '" rel="lightbox[cowboy]" title="' + data.title + '"><img src="' + data.src + '" alt="' + data.alt + '" border="0" /></a></div>');
-        }
+        category = result.cowboy;
+        light = "cowboy";
       }
       if (lnk == "Other Works") {
-        for (item in result.portrait) {
-          var data = result.portrait[item];
-          $('#load_work').append('<div class="image_cell"><a href="' + data.href + '" rel="lightbox[cowboy]" title="' + data.title + '"><img src="' + data.src + '" alt="' + data.alt + '" border="0" /></a></div>');
-        }
+        category = result.portrait;
+        light = "grpth";
+      }
+      for (item in category) {
+        var data = category[item];
+        $('#load_work').append('<div class="image_cell"><a href="' + data.href + '" rel="lightbox[' + light + ']" title="' + data.title + '"><img src="' + data.src + '" alt="' + data.alt + '" border="0" /></a></div>');
       }
     });
   },
 
   showCv: function() {
+    this.navigate('#cv');
     console.log("getting cv data");
 
     $.getJSON('data/cv.json', function(result) {
