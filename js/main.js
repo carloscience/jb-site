@@ -47,9 +47,11 @@ JB.Router = Backbone.Router.extend({
     }
     if (lnk == "Cowboy Paintings" || lnk == "WORK") {
       JB.work.render();
+      this.navigate('work');
     }
     if (lnk == "Other Works") {
       JB.portrait.render();
+      this.navigate('otherwork');
     }
     console.log("getting work data");
     console.log("link is " + lnk);
