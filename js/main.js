@@ -42,11 +42,16 @@ JB.Router = Backbone.Router.extend({
   },
 
   showWork: function(lnk) {
-    //JB.work.render();
-    console.log("getting work data");
     if (!(lnk)) {
         lnk = "WORK";
     }
+    if (lnk == "Cowboy Paintings" || lnk == "WORK") {
+      JB.work.render();
+    }
+    if (lnk == "Other Works") {
+      JB.portrait.render();
+    }
+    console.log("getting work data");
     console.log("link is " + lnk);
     $.getJSON('data/work.json', function(result) {
       
@@ -154,7 +159,7 @@ $(document).ready(function() {
       var $a = $(e.currentTarget).html();
       console.log('current link is ' +  $a)
       //var index = this.$el.find('a').index($a);
-      JB.work.render();
+      //JB.work.render();
       JB.router.showWork($a);
     },
     onCv: function(e) {
@@ -172,7 +177,7 @@ $(document).ready(function() {
       var $a = $(e.currentTarget).html();
       console.log('current link is ' +  $a)
       //var index = this.$el.find('a').index($a);
-      JB.portrait.render();
+      //JB.portrait.render();
       JB.router.showWork($a);
     },
     listWork: function() {
