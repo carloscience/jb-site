@@ -1,0 +1,6 @@
+
+	<% console.log('template test'); %>
+	<% _.each(data, function(cb) { %>
+		<% console.log("looping through json " + cb); %>
+		<div class="image_cell"><a href="<%= cb.href %>" rel="lightbox[cowboy]" title="<%= cb.title %>"><img src="<%= cb.src %>" alt="<%= cb.alt %> " border="0" /></a></div>
+	<% }); %>

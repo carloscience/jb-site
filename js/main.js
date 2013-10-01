@@ -28,12 +28,45 @@ Backbone.Layout.configure({
   }
 });
 
+JB.AppModel = Backbone.Model.extend({
+  defaults: {
+    'href': 'href',
+    'title': 'title',
+    'src': 'src',
+    'alt': 'alt'
+  }
+});
+
+JB.Works = Backbone.Collection.extend({
+  model: JB.AppModel,
+  url: '/artist-portfolio/data/work.json',
+  parse: function(response) {
+    for (data in response.cowboy) {
+      console.log(response.cowboy[data]);
+      //this.set({model: response.cowboy[data]})
+    }
+    console.log('response is ' + response);
+    return response;
+  }
+  /*addItems: function(data) {
+    console.log("adding to collection " + data);
+  }*/
+});
+
+
+
+//JB.works = new JB.Works();
+
+//console.log('work url is ' + JB.works.url);
+
+
 // Backbone router for nav links
 JB.Router = Backbone.Router.extend({
   routes: {
     '': 'index',
+    'index': 'index',
     'work': 'showWork',
-    'portrait': 'showWork',
+    'portrait': 'showPortrait',
     'cv': 'showCv',
     'contact': 'showContact'
   },
@@ -43,56 +76,46 @@ JB.Router = Backbone.Router.extend({
     JB.home.render();
   },
 
-  showWork: function(lnk) {
-    // page is loaded by deep linking. no current target
-    if (!(lnk)) {
-      var deeplink = window.location.hash.substring(1);
-      lnk = deeplink;
-      console.log("link is " + lnk);
-    }
+  showWork: function() {
+    
+    JB.work.render();
+    JB.worksView = new JB.WorksView();
+    /*JB.works.fetch();
+    console.log(JB.works.toJSON());
+    console.log(JB.works.length);
+    JB.workView.render();*/
+    JB.data = {};
 
-    // main work link was clicked or cowboy paintings link was clicked
-    if (lnk == "work" || lnk == "worktitle") {
-      JB.work.render(); // render main work page
-      this.navigate('work'); // route to work page
-    }
-    // portrait link under work dropdown was clicked
-    if (lnk == "portrait" || lnk == "worktitle2") {
-      JB.portrait.render(); // render portrait page
-      this.navigate('portrait'); // route to portrait page
-    }
-    console.log("getting work data");
     // get list of work
+    /*$.getJSON('data/work.json', function(result) {
+      $.extend(JB.data, result);
+      console.log('work data ' + result.cowboy);
+      JB.works.addItems({model: result.cowboy});
+      //JB.working = new JB.Work({model: result});
+
+      /*for (item in result.cowboy) {
+        var data = result.cowboy[item];
+        $('#load_work').append('<div class="image_cell"><a href="' + data.href + '" rel="lightbox[cowboy]" title="' + data.title + '"><img src="' + data.src + '" alt="' + data.alt + '" border="0" /></a></div>');
+      }
+    });*/
+  },
+
+  showPortrait: function() {
+    JB.portrait.render();
     $.getJSON('data/work.json', function(result) {
       
-      var category,
-       light;
-      
-      // look for cowboy paintings in work list 
-      if (lnk == "work" || lnk == "worktitle") {
-        category = result.cowboy;
-        light = "cowboy";
-      }
-
-      // look for portraits in work list
-      if (lnk == "portrait" || lnk == "worktitle2") {
-        category = result.portrait;
-        light = "grpth";
-      }
-      for (item in category) {
-        var data = category[item];
-        $('#load_work').append('<div class="image_cell"><a href="' + data.href + '" rel="lightbox[' + light + ']" title="' + data.title + '"><img src="' + data.src + '" alt="' + data.alt + '" border="0" /></a></div>');
+      for (item in result.portrait) {
+        var data = result.portrait[item];
+        $('#load_work').append('<div class="image_cell"><a href="' + data.href + '" rel="lightbox[grpth]" title="' + data.title + '"><img src="' + data.src + '" alt="' + data.alt + '" border="0" /></a></div>');
       }
     });
   },
 
   showCv: function() {
     JB.cv.render();
-    this.navigate('cv');
     console.log("getting cv data");
 
     $.getJSON('data/cv.json', function(result) {
-          console.log(result);
           for (item in result.education) {
             var data = result.education[item];
             $('.education ul').append('<li>' + data.date + ' ' + data.degree + ', ' + data.university + ', ' + data.city + ', ' + data.state + '</li>');
@@ -134,7 +157,6 @@ JB.Router = Backbone.Router.extend({
   // render contact page and route there
   showContact: function() {
     JB.contact.render();
-    this.navigate('contact');
   }
 });
 
@@ -143,13 +165,6 @@ $(document).ready(function() {
     template: 'header', // load header template
     el: '#header',
     events: {
-      'click a.home': 'onHome',
-      'click a.work': 'onWork',
-      'click a.cv': 'onCv',
-      'click a.contact': 'onContact',
-      'click a.portrait': 'onPortrait',
-      'click a.worktitle2': 'onPortrait',
-      'click a.worktitle': 'onWork',
       'mouseover .listWork': 'listWork', // pulldown menu under work nav
       'mouseleave .listWork': 'hideWork',
       'mouseleave .showPaintings': 'hideWork'
@@ -159,41 +174,13 @@ $(document).ready(function() {
       console.log(this.$el.html());
       this.render(); // render header
     },
-    onHome: function(e) {
-      e.preventDefault();
-      console.log('clicked home');
-      JB.router.index();
-    },
-    onWork: function(e) {
-      e.preventDefault();
-      console.log('clicked work');
-      var $a = $(e.currentTarget).attr('class');;
-      console.log('current link is ' +  $a)
-      JB.router.showWork($a); // route to work page according to type of work
-    },
-    onCv: function(e) {
-      e.preventDefault();
-      JB.router.showCv(); 
-    },
-    onContact: function(e) {
-      e.preventDefault();
-      JB.router.showContact();
-    },
-    onPortrait: function(e) {
-      e.preventDefault();
-      var $a = $(e.currentTarget).attr('class');
-      console.log('current link is ' +  $a)
-      JB.router.showWork($a);
-    },
+    
     listWork: function() {
       console.log('activate dropdown menu');
       $('.showPaintings').slideDown(100);
     },
     hideWork: function() {
       $('.showPaintings').slideUp(100);
-    },
-    serialize: function() {
-      console.log('serializing');
     }
   });
 
@@ -202,20 +189,12 @@ $(document).ready(function() {
     el: '#populate',
     initialize: function(){
       console.log('home initialized');
-      this.render();
     }
   });
 
   JB.Work = Backbone.Layout.extend({
     template: 'work', // load work template
     el: '#populate',
-    events: {
-      'click a.worktitle2': 'subPortrait'
-    },
-    subPortrait: function(e) {
-      e.preventDefault();
-      JB.header.onPortrait(e); // pass other works link to portrait layout in header
-    },
     initialize: function(){
         console.log('work initialized');
     }
@@ -240,15 +219,41 @@ $(document).ready(function() {
   JB.Portrait = Backbone.Layout.extend({
     template: 'portrait', // load portrait template
     el: '#populate',
-    events: {
-      'click a.worktitle': 'subWork'
-    },
-    subWork: function(e) {
-      e.preventDefault();
-      JB.header.onWork(e);
-    },
     initialize: function() {
       console.log('portrait initialized');
+    }
+  });
+
+  JB.WorksView = Backbone.Layout.extend({
+    template: 'cowboy',
+    el: '#load_work',
+    initialize: function() {
+      var works = new JB.Works();
+      works.fetch({
+        success: function() {
+          console.log("JSON file load was successful", works);
+        },
+        error: function(){
+          console.log('There was some error in loading and processing the JSON file');
+        }
+      });
+      works.bind('reset', function () { console.log(works); });
+      console.log("this collection has " + works);
+      console.log("length of collection is " + works.toJSON().length);
+      var works_template = _.template(this.template);
+      var html = works_template();
+      $(this.el).html(works_template({ data: works.toJSON() }));
+      //console.log("works template is " + html);
+      //console.log('testing cowboy template' + this.$el.html());
+      this.render();
+    //this.collection.bind('reset', this.render, this);
+    //
+    },
+    render: function() {
+      //$(this.el).html(this.template({ this.collection.toJSON()});
+      console.log('rendering cowboy template');
+      
+      //return this;
     }
   });
 
