@@ -45,14 +45,13 @@ JB.Works = Backbone.Collection.extend({
       console.log(response.cowboy[data]);
       //this.set({model: response.cowboy[data]})
     }
-    console.log('response is ' + response);
-    return response;
+    console.log('response is ' + response.cowboy);
+    return response.cowboy;
   }
   /*addItems: function(data) {
     console.log("adding to collection " + data);
   }*/
 });
-
 
 
 //JB.works = new JB.Works();
@@ -80,10 +79,8 @@ JB.Router = Backbone.Router.extend({
     
     JB.work.render();
     JB.worksView = new JB.WorksView();
-    /*JB.works.fetch();
-    console.log(JB.works.toJSON());
-    console.log(JB.works.length);
-    JB.workView.render();*/
+    //JB.worksView.render();
+    /*JB.works.fetch(*/
     JB.data = {};
 
     // get list of work
@@ -197,6 +194,7 @@ $(document).ready(function() {
     el: '#populate',
     initialize: function(){
         console.log('work initialized');
+        console.log('work el is ' + this.el);
     }
   });
   
@@ -225,35 +223,78 @@ $(document).ready(function() {
   });
 
   JB.WorksView = Backbone.Layout.extend({
-    template: 'cowboy',
+    defaults: {
+      works: []
+    },
+    //template: 'cowboy',
+    template: _.template('<% console.log("template test"); %>' + '<% _.each(this.works, function(cb) { %>' + 
+      '<div class="image_cell"><a href="<%= cb.get("href") %>" rel="lightbox[cowboy]" title="<%= cb.get("title") %>">' +
+      '<img src="<%= cb.get("src") %>" alt="<%= cb.get("alt") %> " border="0" /></a></div><% }); %>'),
     el: '#load_work',
     initialize: function() {
       var works = new JB.Works();
+      var hold_model = [];
       works.fetch({
         success: function() {
           console.log("JSON file load was successful", works);
+          console.log("models are " + works.models);
+          console.log("checking for undefined objects " + this.collection);
+          for (model in works.models) {
+            console.log("looping through collection " + works.models[model].attributes.title);
+            hold_model.push(works.models[model].attributes);
+          }
+          //var template = _.template(this.template, {works: works.models});
+          //this.$el.html(template);  
+          //var works_template = _.template(this.template);
+          //console.log("works template is " + works_template);
+          //var html = works_template();
+          //console.log("template is " + html);
+          console.log("work length is " + works.toJSON().length);
+          console.log("work attributes are " + works.attributes);
+
+          
         },
         error: function(){
           console.log('There was some error in loading and processing the JSON file');
         }
       });
       works.bind('reset', function () { console.log(works); });
-      console.log("this collection has " + works);
-      console.log("length of collection is " + works.toJSON().length);
-      var works_template = _.template(this.template);
-      var html = works_template();
-      $(this.el).html(works_template({ data: works.toJSON() }));
+      console.log("length is " + works.models.length);
+      console.log("after bind works is " + works.models);
+      var thiswork = this.work;
+      this.$el.html(this.template(works.toJSON()));
+      //console.log("now el has " + $(this.el).html(this.template, {collection: JB.Works.models}));
+      console.log("el is " + this.$el.attr('id'));
+      this.render();
+      /*for (work in works) {
+        console.log("work is " + work);
+      }*/
+      /*_.each(works.models[0], function(profile){
+        console.log('profile is ' + profile.toJSON());
+         var profileTemplate = this.template(profile.toJSON());
+         $(this.el).append(profileTemplate);
+      }, this);
+      return this;*/
+      
+      //this.$el.html(works_template({collection: works.models[0]}));
+      
       //console.log("works template is " + html);
       //console.log('testing cowboy template' + this.$el.html());
-      this.render();
+     
     //this.collection.bind('reset', this.render, this);
     //
     },
     render: function() {
+      //$(this.el).html(this.template(JB.Works.models));
       //$(this.el).html(this.template({ this.collection.toJSON()});
-      console.log('rendering cowboy template');
+     console.log('rendering cowboy template');
+     /* _.each(this.model.models, function(profile){
+         var profileTemplate = this.template(profile.toJSON());
+         $(this.el).append(profileTemplate);
+      }, this);
+      return this;*/
       
-      //return this;
+      return this;
     }
   });
 
@@ -265,6 +306,7 @@ $(document).ready(function() {
   JB.contact = new JB.Contact();
   JB.cv = new JB.Cv();
   JB.portrait = new JB.Portrait();
+  JB.works = new JB.Works({parse: true});
 
   // start router
   Backbone.history.start();
