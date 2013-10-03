@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Jorin Bossen</title>
+
+<link rel="stylesheet" type="text/css" href="styles.css"/>
+
+<!-- a helper script for vaidating the form-->
+<script language="JavaScript" src="scripts/gen_validatorv31.js" type="text/javascript"></script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript">
+jQuery.noConflict();
+jQuery(document).ready(function ($) {
+    $('#nav li').hover(
+        function () {
+            //show its submenu
+            $('ul', this).slideDown(100);
+ 
+        },
+        function () {
+            //hide its submenu
+            $('ul', this).slideUp(100);        
+        }
+    );
+    $(".lnksection").mouseover(function () {
+        $("#dropdown").show();
+    });
+});
+</script>
+</head>
+
+<body>
+<div id="content">
+<div id="wrapper">
+<div id="header">
+<div class="htitle">
+<div class="dtitle">
+<a href="index.html">
+Jorin Bossen</a></div>
+<!--close dtitle -->
+<ul id="nav" style="position:relative; top:5px;">
+    <li><span class="nav2"><a href="work.html">WORK</a></span>
+    	<ul>
+            <li><a class="drop1" href="work.html">Cowboy Paintings</a></li>
+            <li><a class="drop2" href="work.html#other" class="selected">Other Works</a></li>
+    	</ul>
+        <div class="clear"></div>
+    </li>
+    <li><span class="nav2"><a href="CV.html">CV</a></span></li>
+    <li><span class="nav2"><a href="contact.html" class="selected">CONTACT</a></span></li>
+</ul>
+<div class="clear"></div>
+</div><!-- close htitle-->
+</div><!--close header-->
+<div class="ctext" style="padding-top:1.5em;">
+Thank you for contacting Jorin Bossen. We will get back to you as soon as we can.
+</div>
+</div>
+</div>
+</body>
+</html>
