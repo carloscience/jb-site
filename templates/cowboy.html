@@ -1,6 +1,3 @@
- 
-	<% console.log('template test'); %>
-	<% _.each(JB.Works.models, function(cb) { %>
-		<% console.log("looping through json " + cb); %>
-		<div class="image_cell"><a href="<%= cb %>" rel="lightbox[cowboy]" title="<%= cb %>"><img src="<%= cb %>" alt="<%= cb %> " border="0" /></a></div>
-	<% }); %>
+ <% _.each(model, function(cb) { %>
+	<div class="image_cell"><a href="<%= cb.href %>" rel="lightbox[cowboy]" title="<%= cb.title %>"><img src="<%= cb.src %>" alt="<%= cb.alt %> " border="0" /></a></div>
+<% }); %>
