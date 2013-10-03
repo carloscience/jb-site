@@ -1,3 +1,3 @@
- <% _.each(model, function(gr) { %>
+ <% _.each(JB.groupModel, function(gr) { %>
  	<li><%= gr.date %>  <%= gr.title %>,<% if (gr.gallery) {%> <%= gr.gallery %>, <% } %> <%= gr.city %>, <%= gr.state %></li>
 <% }); %>

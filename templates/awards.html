@@ -1,0 +1,3 @@
+ <% _.each(JB.awardModel, function(aw) { %>
+ 	<li><%= aw.date %>  <%= aw.title %>,<% if (aw.category) {%> <%= aw.category %>, <% } %> <%= aw.city %>, <%= aw.state %></li>
+<% }); %>

@@ -30,6 +30,16 @@ Backbone.Layout.configure({
   }
 });
 
+JB.EducationModel = Backbone.Model.extend({});
+JB.SoloModel = Backbone.Model.extend({});
+JB.GroupModel = Backbone.Model.extend({});
+JB.AwardModel = Backbone.Model.extend({});
+JB.PublicationModel = Backbone.Model.extend({});
+JB.educationModel = new JB.EducationModel();
+JB.soloModel = new JB.SoloModel();
+JB.groupModel = new JB.GroupModel();
+JB.awardModel = new JB.AwardModel();
+
 // Backbone router for nav links
 JB.Router = Backbone.Router.extend({
   routes: {
@@ -75,42 +85,29 @@ JB.Router = Backbone.Router.extend({
 
     $.getJSON('data/cv.json', function(data) {
           $.extend(JB.data, data);
-          var education = 'education';
-          model = data[education];
-          console.log("model length is " + model.length);
-          var model1 = model;
-          JB.educationView = new JB.EducationView({data: model1});
-          var solo = 'solo';
-          model = data[solo];
-          console.log("model length is " + model.length);
-          var model2 = model;
-          JB.soloView = new JB.SoloView({data: model2});
-          /*var group = 'group';
-          model = data[group];
-          JB.groupView = new JB.GroupView({data: model});*/
+        
+          var education = 'education',
+            solo = 'solo',
+            group = 'group',
+            awards = 'awards',
+            publications = 'publications';
 
-          /*for (item in result.group) {
-            var data = result.group[item];
-            if (data.gallery) {
-                var exhibitions = '<li>' + data.date + ' ' + data.title + ', ' + data.gallery + ', ' + data.city + ', ' + data.state + '</li>';
-            } else {
-                var exhibitions = '<li>' + data.date + ' ' + data.title + ', ' + data.city + ', ' + data.state + '</li>';
-            }
-            $('.group ul').append(exhibitions);
-          }
-          for (item in result.awards) {
-            var data = result.awards[item];
-            if (data.category) {
-                var exhibitions = '<li>' + data.date + ' ' + data.title + ', ' + data.category + ', ' + data.city + ', ' + data.state + '</li>';
-            } else {
-                var exhibitions = '<li>' + data.date + ' ' + data.title + ', ' + data.city + ', ' + data.state + '</li>';
-            }
-            $('.awards ul').append(exhibitions);
-          }
-          for (item in result.publications) {
-            var data = result.publications[item];
-            $('.publications ul').append('<li>' + data.date + ', ' + data.title + '</li>');
-          }*/
+          JB.educationModel = data[education];
+          JB.soloModel = data[solo];
+          JB.groupModel = data[group];
+          JB.awardModel = data[awards];
+          JB.publicationModel = data[publications];
+          //JB.cv.setView('education', new JB.EducationView({data: }));
+          JB.educationView = new JB.EducationView({data: JB.educationModel});
+          
+          //JB.cv.setView('solo', new JB.SoloView({data: JB.soloModel}));
+          JB.soloView = new JB.SoloView({data: JB.soloModel});
+          
+          JB.groupView = new JB.GroupView({data: JB.groupModel});
+          
+          JB.awardView = new JB.AwardView({data: JB.awardModel});
+         
+          JB.publicationView = new JB.PublicationView({data: JB.publicationModel});
     });
   },
 
@@ -218,13 +215,29 @@ $(document).ready(function() {
     }
   });
 
-  /*JB.GroupView = Backbone.Layout.extend({
+  JB.GroupView = Backbone.Layout.extend({
     template: 'group',
     el: '.group_list',
     initialize: function() {
       this.render();
     }
-  });*/
+  });
+
+  JB.AwardView = Backbone.Layout.extend({
+    template: 'awards',
+    el: '.award_list',
+    initialize: function() {
+      this.render();
+    }
+  });
+
+  JB.PublicationView = Backbone.Layout.extend({
+    template: 'publications',
+    el: '.publication_list',
+    initialize: function() {
+      this.render();
+    }
+  });
 
   // instantiate Layouts and Router
   JB.home = new JB.Home();
