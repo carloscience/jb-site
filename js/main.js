@@ -118,6 +118,7 @@ JB.Router = Backbone.Router.extend({
 });
 
 $(document).ready(function() {
+
   JB.Header = Backbone.Layout.extend({
     template: 'header', // load header template
     el: '#header',

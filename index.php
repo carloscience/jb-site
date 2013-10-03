@@ -1,8 +1,8 @@
 <? include 'header.php' ?>
-<div id="header">
-</div>
-<div id="populate">
-</div>
+<section id="header">
+</section>
+<section id="populate">
+</section>
 </div>
 </div>
 </body>
