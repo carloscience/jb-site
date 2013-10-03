@@ -1,6 +1,8 @@
 var JB = JB || {}; // main app object
 var JST = JST || {};
 
+JB.data = {};
+
 // configure backbone layouts
 Backbone.Layout.configure({
   manage: true,
@@ -28,23 +30,6 @@ Backbone.Layout.configure({
   }
 });
 
-JB.AppModel = Backbone.Model.extend({
-  defaults: {
-    'href': 'href',
-    'title': 'title',
-    'src': 'src',
-    'alt': 'alt'
-  }
-});
-
-
-
-
-//JB.works = new JB.Works();
-
-//console.log('work url is ' + JB.works.url);
-
-
 // Backbone router for nav links
 JB.Router = Backbone.Router.extend({
   routes: {
@@ -62,9 +47,8 @@ JB.Router = Backbone.Router.extend({
   },
 
   showWork: function() {
-    
+    // render work template
     JB.work.render();
-    JB.data = {};
     $.getJSON('data/work.json', function(data) {
       $.extend(JB.data, data);
       var val = 'cowboy';
@@ -74,39 +58,38 @@ JB.Router = Backbone.Router.extend({
   },
 
   showPortrait: function() {
+    // render portrait template
     JB.portrait.render();
-    JB.data = {};
     $.getJSON('data/work.json', function(data) {
       $.extend(JB.data, data);
       var val = 'portrait';
       model = data[val];
       JB.portraitView = new JB.PortraitView({data: model});
-      /*for (item in result.portrait) {
-        var data = result.portrait[item];
-        $('#load_work').append('<div class="image_cell"><a href="' + data.href + '" rel="lightbox[grpth]" title="' + data.title + '"><img src="' + data.src + '" alt="' + data.alt + '" border="0" /></a></div>');
-      }*/
     });
   },
 
   showCv: function() {
+    // render CV template
     JB.cv.render();
     console.log("getting cv data");
 
-    $.getJSON('data/cv.json', function(result) {
-          for (item in result.education) {
-            var data = result.education[item];
-            $('.education ul').append('<li>' + data.date + ' ' + data.degree + ', ' + data.university + ', ' + data.city + ', ' + data.state + '</li>');
-          }
-          for (item in result.solo) {
-            var data = result.solo[item];
-            if (data.gallery) {
-                var exhibitions = '<li>' + data.date + ' ' + data.title + ', ' + data.gallery + ', ' + data.city + ', ' + data.state + '</li>';
-            } else {
-                var exhibitions = '<li>' + data.date + ' ' + data.title + ', ' + data.city + ', ' + data.state + '</li>';
-            }
-            $('.solo ul').append(exhibitions);
-          }
-          for (item in result.group) {
+    $.getJSON('data/cv.json', function(data) {
+          $.extend(JB.data, data);
+          var education = 'education';
+          model = data[education];
+          console.log("model length is " + model.length);
+          var model1 = model;
+          JB.educationView = new JB.EducationView({data: model1});
+          var solo = 'solo';
+          model = data[solo];
+          console.log("model length is " + model.length);
+          var model2 = model;
+          JB.soloView = new JB.SoloView({data: model2});
+          /*var group = 'group';
+          model = data[group];
+          JB.groupView = new JB.GroupView({data: model});*/
+
+          /*for (item in result.group) {
             var data = result.group[item];
             if (data.gallery) {
                 var exhibitions = '<li>' + data.date + ' ' + data.title + ', ' + data.gallery + ', ' + data.city + ', ' + data.state + '</li>';
@@ -127,8 +110,8 @@ JB.Router = Backbone.Router.extend({
           for (item in result.publications) {
             var data = result.publications[item];
             $('.publications ul').append('<li>' + data.date + ', ' + data.title + '</li>');
-          }
-      });
+          }*/
+    });
   },
 
   // render contact page and route there
@@ -218,6 +201,30 @@ $(document).ready(function() {
       this.render();
     }
   });
+
+  JB.EducationView = Backbone.Layout.extend({
+    template: 'education',
+    el: '.education_list',
+    initialize: function() {
+      this.render();
+    }
+  });
+
+  JB.SoloView = Backbone.Layout.extend({
+    template: 'solo',
+    el: '.solo_list',
+    initialize: function() {
+      this.render();
+    }
+  });
+
+  /*JB.GroupView = Backbone.Layout.extend({
+    template: 'group',
+    el: '.group_list',
+    initialize: function() {
+      this.render();
+    }
+  });*/
 
   // instantiate Layouts and Router
   JB.home = new JB.Home();

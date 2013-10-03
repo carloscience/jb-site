@@ -1,0 +1,3 @@
+ <% _.each(model, function(sl) { %>
+ 	<li><%= sl.date %>  <%= sl.title %>,<% if (sl.gallery) {%> <%= sl.gallery %>, <% } %> <%= sl.city %>, <%= sl.state %></li>
+<% }); %>
